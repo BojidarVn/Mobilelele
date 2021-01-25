@@ -3,12 +3,17 @@ package bg.softuni.lection2.demo;
 import bg.softuni.lection2.demo.model.BaseEntity;
 import bg.softuni.lection2.demo.model.BrandEntity;
 import bg.softuni.lection2.demo.model.ModelEntity;
+import bg.softuni.lection2.demo.model.OfferEntity;
+import bg.softuni.lection2.demo.model.enums.EngineEnum;
 import bg.softuni.lection2.demo.model.enums.ModelCategoryEnum;
+import bg.softuni.lection2.demo.model.enums.TransmissionEnum;
 import bg.softuni.lection2.demo.repository.BrandRepository;
 import bg.softuni.lection2.demo.repository.ModelRepository;
+import bg.softuni.lection2.demo.repository.OfferRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
@@ -17,10 +22,12 @@ public class DBInit implements CommandLineRunner {
 
     private final ModelRepository modelRepository;
     private final BrandRepository brandRepository;
+    private final OfferRepository offerRepository;
 
-    public DBInit(ModelRepository modelRepository, BrandRepository brandRepository) {
+    public DBInit(ModelRepository modelRepository, BrandRepository brandRepository, OfferRepository offerRepository) {
         this.modelRepository = modelRepository;
         this.brandRepository = brandRepository;
+        this.offerRepository = offerRepository;
     }
 
 
@@ -39,9 +46,28 @@ public class DBInit implements CommandLineRunner {
 
         ModelEntity escort = initEscort(fordBrand);
 
-     initNC750S(hondaBrand);
+        initNC750S(hondaBrand);
 
+        createFiestaOffer(fiesta);
 
+    }
+
+    private void createFiestaOffer(ModelEntity modelEntity) {
+        OfferEntity fiestaOffer=new OfferEntity();
+
+        fiestaOffer
+                .setEngine(EngineEnum.DIESEL)
+                .setImageUrl("https://www.ford.com/content/dam/vdm_ford/live/en_us/ford/nameplate/ecosport/2020/collections/_360/lightningblue/ecosport_20_lightning_blue_34.jpg")
+                .setMileage(40000)
+                .setPrice(BigDecimal.valueOf(10000))
+                .setYear(2019)
+                .setDescription("Karana e ot nemska baba. Zimata v garaj")
+                .setTransmission(TransmissionEnum.MANUAL)
+                .setModel(modelEntity);
+
+        serCurrentTimestamp(fiestaOffer);
+
+        offerRepository.save(fiestaOffer);
     }
 
     private ModelEntity initNC750S(BrandEntity hondaBrand) {
