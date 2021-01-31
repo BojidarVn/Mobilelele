@@ -1,4 +1,4 @@
-package bg.softuni.lection2.demo.model.service;
+package bg.softuni.lection2.demo.service;
 
 import bg.softuni.lection2.demo.model.view.OfferSummaryViewModel;
 

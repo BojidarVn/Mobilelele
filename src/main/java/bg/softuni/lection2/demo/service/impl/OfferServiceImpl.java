@@ -1,6 +1,6 @@
-package bg.softuni.lection2.demo.model.service.impl;
+package bg.softuni.lection2.demo.service.impl;
 
-import bg.softuni.lection2.demo.model.service.OffersService;
+import bg.softuni.lection2.demo.service.OffersService;
 import bg.softuni.lection2.demo.model.view.OfferSummaryViewModel;
 import org.springframework.stereotype.Service;
 

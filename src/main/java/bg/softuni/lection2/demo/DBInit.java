@@ -1,16 +1,15 @@
 package bg.softuni.lection2.demo;
 
-import bg.softuni.lection2.demo.model.BaseEntity;
-import bg.softuni.lection2.demo.model.BrandEntity;
-import bg.softuni.lection2.demo.model.ModelEntity;
-import bg.softuni.lection2.demo.model.OfferEntity;
+import bg.softuni.lection2.demo.model.*;
 import bg.softuni.lection2.demo.model.enums.EngineEnum;
 import bg.softuni.lection2.demo.model.enums.ModelCategoryEnum;
 import bg.softuni.lection2.demo.model.enums.TransmissionEnum;
 import bg.softuni.lection2.demo.repository.BrandRepository;
 import bg.softuni.lection2.demo.repository.ModelRepository;
 import bg.softuni.lection2.demo.repository.OfferRepository;
+import bg.softuni.lection2.demo.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -23,11 +22,16 @@ public class DBInit implements CommandLineRunner {
     private final ModelRepository modelRepository;
     private final BrandRepository brandRepository;
     private final OfferRepository offerRepository;
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
-    public DBInit(ModelRepository modelRepository, BrandRepository brandRepository, OfferRepository offerRepository) {
+    public DBInit(ModelRepository modelRepository, BrandRepository brandRepository, OfferRepository offerRepository,
+          UserRepository userRepository , PasswordEncoder passwordEncoder) {
         this.modelRepository = modelRepository;
         this.brandRepository = brandRepository;
         this.offerRepository = offerRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -42,15 +46,31 @@ public class DBInit implements CommandLineRunner {
         serCurrentTimestamp(hondaBrand);
         brandRepository.saveAll(List.of(fordBrand, hondaBrand));
 
-        ModelEntity fiesta = initFiesta(fordBrand);
+        ModelEntity fiestaModel = initFiesta(fordBrand);
 
         ModelEntity escort = initEscort(fordBrand);
 
         initNC750S(hondaBrand);
 
-        createFiestaOffer(fiesta);
+        createFiestaOffer(fiestaModel);
+
+        initAdmin();
 
     }
+
+    private void initAdmin() {
+        UserEntity admin = new UserEntity();
+        admin
+                .setFirstName("Петър")
+                .setLastName("Димитров")
+                .setUsername("admin")
+                .setPassword(passwordEncoder.encode("topsecred"));
+serCurrentTimestamp(admin);
+        userRepository.save(admin);
+
+
+    }
+
 
     private void createFiestaOffer(ModelEntity modelEntity) {
         OfferEntity fiestaOffer=new OfferEntity();

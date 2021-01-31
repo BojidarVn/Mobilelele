@@ -1,6 +1,6 @@
 package bg.softuni.lection2.demo.web;
 
-import bg.softuni.lection2.demo.model.service.BrandService;
+import bg.softuni.lection2.demo.service.BrandService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

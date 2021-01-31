@@ -1,8 +1,8 @@
-package bg.softuni.lection2.demo.model.service.impl;
+package bg.softuni.lection2.demo.service.impl;
 
 import bg.softuni.lection2.demo.model.BrandEntity;
 import bg.softuni.lection2.demo.model.ModelEntity;
-import bg.softuni.lection2.demo.model.service.BrandService;
+import bg.softuni.lection2.demo.service.BrandService;
 import bg.softuni.lection2.demo.model.view.BrandViewModel;
 import bg.softuni.lection2.demo.model.view.ModelViewModel;
 import bg.softuni.lection2.demo.repository.ModelRepository;
