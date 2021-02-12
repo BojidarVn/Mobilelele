@@ -25,6 +25,17 @@ public class BaseEntity {
         return this;
     }
 
+    @PrePersist
+    public void prePersist() {
+        setCreated(Instant.now());
+        setUpdated(Instant.now());
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        setUpdated(Instant.now());
+    }
+
     public Instant getCreated() {
         return created;
     }

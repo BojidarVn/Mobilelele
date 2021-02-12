@@ -99,7 +99,7 @@ public class OfferEntity extends BaseEntity {
         return this;
     }
 
-    //TODO: uncomment when users come into the game.
+
     public UserEntity getUser() {
         return user;
     }
@@ -119,7 +119,7 @@ public class OfferEntity extends BaseEntity {
                 ", year=" + year +
                 ", transmission=" + transmission +
                 ", model=" + model +
-                //", user=" + user +
+                ", user=" + user +
                 ", id=" + id +
                 ", created=" + created +
                 ", updated=" + updated +

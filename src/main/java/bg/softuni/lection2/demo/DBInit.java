@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+
 import java.util.List;
 
 @Component
@@ -39,11 +39,11 @@ public class DBInit implements CommandLineRunner {
     public void run(String... args) throws Exception {
         BrandEntity fordBrand = new BrandEntity();
         fordBrand.setName("Ford");
-        serCurrentTimestamp(fordBrand);
+
 
         BrandEntity hondaBrand = new BrandEntity();
         hondaBrand.setName("Honda");
-        serCurrentTimestamp(hondaBrand);
+
         brandRepository.saveAll(List.of(fordBrand, hondaBrand));
 
         ModelEntity fiestaModel = initFiesta(fordBrand);
@@ -75,7 +75,7 @@ public class DBInit implements CommandLineRunner {
                 .setUsername("admin")
                 .setPassword(passwordEncoder.encode("topsecred"))
         .setUserRoles(List.of(adminRole,userRole));
-serCurrentTimestamp(admin);
+
 
         UserEntity pesho = new UserEntity();
         pesho
@@ -84,7 +84,7 @@ serCurrentTimestamp(admin);
                 .setUsername("pesho")
                 .setPassword(passwordEncoder.encode("topsecred"))
                 .setUserRoles(List.of(userRole));
-        serCurrentTimestamp(pesho);
+
 
         userRepository.saveAll(List.of(admin,pesho));
     }
@@ -104,7 +104,7 @@ serCurrentTimestamp(admin);
                 .setTransmission(TransmissionEnum.MANUAL)
                 .setModel(modelEntity);
 
-        serCurrentTimestamp(fiestaOffer);
+
 
         offerRepository.save(fiestaOffer);
     }
@@ -119,7 +119,7 @@ serCurrentTimestamp(admin);
                 .setStartYear(2014)
                 .setBrand(hondaBrand);
 
-        serCurrentTimestamp(nc750s);
+
         return modelRepository.save(nc750s);
     }
 
@@ -133,7 +133,7 @@ serCurrentTimestamp(admin);
                 .setStartYear(1968)
                 .setEndYear(2002)
                 .setBrand(fordBrand);
-        serCurrentTimestamp(escort);
+
         return modelRepository.save(escort);
     }
 
@@ -146,15 +146,11 @@ serCurrentTimestamp(admin);
                 .setImageUrl("https://media.autoexpress.co.uk/image/private/s--zkHyvWs---/f_auto,t_content-image-full-desktop@2/v1579598728/autoexpress/2020/01/new-fiesta-trend.jpg")
                 .setStartYear(1976)
                 .setBrand(fordBrand);
-        serCurrentTimestamp(fiesta);
+
         return modelRepository.save(fiesta);
     }
 
-    public static void serCurrentTimestamp(BaseEntity baseEntity) {
-        baseEntity
-                .setCreated(Instant.now())
-                .setUpdated(Instant.now());
-    }
+
 }
 
 
